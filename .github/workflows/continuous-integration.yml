@@ -147,7 +147,7 @@ jobs:
           path: |
             **/.cache/yarn
             **/node_modules
-          key: ${{ steps.get-node-version.outputs.NODE_VERSION }}-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ steps.get-node-version.outputs.NODE_VERSION }}-self-hosted-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile --prefer-offline --network-concurrency 1
@@ -441,7 +441,7 @@ jobs:
           path: |
             .cache/yarn
             node_modules
-          key: ${{ steps.get-node-version.outputs.NODE_VERSION }}-${{ hashFiles('yarn.lock') }}
+          key: ${{ steps.get-node-version.outputs.NODE_VERSION }}-self-hosted-${{ hashFiles('yarn.lock') }}
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile --prefer-offline
