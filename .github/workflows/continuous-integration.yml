@@ -455,7 +455,7 @@ jobs:
           path: |
             /root/.cache/Cypress
             .cache/yarn
-            **/node_modules
+            node_modules
           key: ${{ steps.get-node-version.outputs.NODE_VERSION }}-self-hosted-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install dependencies
