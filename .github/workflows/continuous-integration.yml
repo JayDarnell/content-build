@@ -155,6 +155,18 @@ jobs:
         env:
           YARN_CACHE_FOLDER: .cache/yarn
 
+      - name: Directory/binary info
+        run: |
+          pwd
+          ls -la
+          npx cypress verify
+          npx cypress info
+          npx cypress version
+          npx cypress version --component package
+          npx cypress version --component binary
+          npx cypress version --component electron
+          npx cypress version --component node
+
       - name: Set Drupal address
         if: ${{ github.ref == 'refs/heads/master' }}
         run: echo "DRUPAL_ADDRESS=${{ matrix.drupal-address }}" >> $GITHUB_ENV
