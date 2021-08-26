@@ -155,25 +155,12 @@ jobs:
         env:
           YARN_CACHE_FOLDER: .cache/yarn
 
-      - name: Directory/binary info
-        run: |
-          pwd
-          ls -la
-          ls -la .cache
-          npx cypress verify
-          npx cypress info
-          npx cypress version
-          npx cypress version --component package
-          npx cypress version --component binary
-          npx cypress version --component electron
-          npx cypress version --component node
-
       - name: Set Drupal address
         if: ${{ github.ref == 'refs/heads/master' }}
         run: echo "DRUPAL_ADDRESS=${{ matrix.drupal-address }}" >> $GITHUB_ENV
 
       - name: Build
-        run: yarn build --buildtype=${{ matrix.buildtype }} --asset-source=local --drupal-address=https://cms-vets-website-branch-builds-lo9uhqj18nwixunsjadvjsynuni7kk1u.ci.cms.va.gov --pull-drupal --drupal-max-parallel-requests=15 --no-drupal-proxy --verbose
+        run: yarn build --buildtype=${{ matrix.buildtype }} --asset-source=local --drupal-address=${{ env.DRUPAL_ADDRESS }} --pull-drupal --drupal-max-parallel-requests=15 --no-drupal-proxy --verbose
         env:
           NODE_ENV: production
 
@@ -459,22 +446,9 @@ jobs:
           key: ${{ steps.get-node-version.outputs.NODE_VERSION }}-self-hosted-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile --prefer-offline --network-concurrency 1
+        run: yarn install --frozen-lockfile --prefer-offline
         env:
           YARN_CACHE_FOLDER: .cache/yarn
-
-      - name: Directory/binary info
-        run: |
-          pwd
-          ls -la
-          ls -la .cache
-          npx cypress verify
-          npx cypress info
-          npx cypress version
-          npx cypress version --component package
-          npx cypress version --component binary
-          npx cypress version --component electron
-          npx cypress version --component node
 
       - name: Start server
         run: node src/platform/testing/e2e/test-server.js --buildtype vagovprod --port=3002 &
