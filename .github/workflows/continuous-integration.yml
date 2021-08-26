@@ -145,8 +145,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            **/.cache/Cypress
-            **/.cache/yarn
+            ~/.cache/Cypress
+            ~/.cache/yarn
             **/node_modules
           key: ${{ steps.get-node-version.outputs.NODE_VERSION }}-self-hosted-${{ hashFiles('**/yarn.lock') }}
 
@@ -160,7 +160,7 @@ jobs:
         run: echo "DRUPAL_ADDRESS=${{ matrix.drupal-address }}" >> $GITHUB_ENV
 
       - name: Build
-        run: yarn build --buildtype=${{ matrix.buildtype }} --asset-source=local --drupal-address=${{ env.DRUPAL_ADDRESS }} --pull-drupal --drupal-max-parallel-requests=15 --no-drupal-proxy --verbose
+        run: yarn build --buildtype=${{ matrix.buildtype }} --asset-source=local --drupal-address=https://cms-vets-website-branch-builds-lo9uhqj18nwixunsjadvjsynuni7kk1u.ci.cms.va.gov --pull-drupal --drupal-max-parallel-requests=15 --no-drupal-proxy --verbose
         env:
           NODE_ENV: production
 
@@ -440,13 +440,13 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            .cache/Cypress
-            .cache/yarn
-            node_modules
-          key: ${{ steps.get-node-version.outputs.NODE_VERSION }}-self-hosted-${{ hashFiles('yarn.lock') }}
+            ~/.cache/Cypress
+            ~/.cache/yarn
+            **/node_modules
+          key: ${{ steps.get-node-version.outputs.NODE_VERSION }}-self-hosted-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile --prefer-offline
+        run: yarn install --frozen-lockfile --prefer-offline --network-concurrency 1
         env:
           YARN_CACHE_FOLDER: .cache/yarn
 
