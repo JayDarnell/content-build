@@ -151,7 +151,7 @@ jobs:
     needs:
       - start-runner
       - validate-build-status
-    timeout-minutes: 45 
+    timeout-minutes: 45
     defaults:
       run:
         working-directory: content-build
@@ -182,7 +182,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           path: content-build
-          ref: ${{ needs.validate-build-status.outputs.REF }}
+          ref: VAGOV-0000-yarn_lock_touch_testref
 
       - name: Get Node version
         id: get-node-version
