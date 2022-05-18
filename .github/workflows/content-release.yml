@@ -193,20 +193,20 @@ jobs:
         with:
           node-version: ${{ steps.get-node-version.outputs.NODE_VERSION }}
 
-      - name: Cache dependencies
-        id: cache-dependencies
-        uses: actions/cache@v3
-        with:
-          path: |
-            .cache/yarn
-            **/node_modules
-          key: ${{ steps.get-node-version.outputs.NODE_VERSION }}-on-demand-runners-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ steps.get-node-version.outputs.NODE_VERSION }}-on-demand-runners-
+      # - name: Cache dependencies
+      #   id: cache-dependencies
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: |
+      #       .cache/yarn
+      #       **/node_modules
+      #     key: ${{ steps.get-node-version.outputs.NODE_VERSION }}-on-demand-runners-${{ hashFiles('**/yarn.lock') }}
+      #     restore-keys: ${{ steps.get-node-version.outputs.NODE_VERSION }}-on-demand-runners-
 
       - name: Install dependencies
         uses: nick-invision/retry@v2
         with:
-          command: cd content-build && yarn install --verbose --frozen-lockfile --prefer-offline
+          command: cd content-build && yarn install --frozen-lockfile --prefer-offline
           max_attempts: 3
           timeout_minutes: 7
         env:
