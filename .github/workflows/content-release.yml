@@ -200,8 +200,8 @@ jobs:
           path: |
             .cache/yarn
             **/node_modules
-          key: ${{ steps.get-node-version.outputs.NODE_VERSION }}-on-demand-runner-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ steps.get-node-version.outputs.NODE_VERSION }}-on-demand-runner-
+          key: ${{ steps.get-node-version.outputs.NODE_VERSION }}-on-demand-runners-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ steps.get-node-version.outputs.NODE_VERSION }}-on-demand-runners-
 
       - name: Install dependencies
         uses: nick-invision/retry@v2
