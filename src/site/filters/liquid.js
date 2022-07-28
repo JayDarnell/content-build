@@ -1338,7 +1338,7 @@ module.exports = function registerFilters() {
   liquid.filters.pathContainsSubstring = (path, searchValue) => {
     if (!path) return null;
     const basePath = liquid.filters.regionBasePath(path);
-    return basePath.includes(searchValue);
+    return basePath?.includes(searchValue);
   };
 
   liquid.filters.currentTime = () => {
